@@ -3,7 +3,7 @@ import turtle
 window = turtle.Screen()
 window.title('pong by manani from tokyotech')
 window.bgcolor('black')
-window.setup(width=800, height=600)
+window.setup(width=1000, height=600)
 window.tracer(0) # stops windoow from automatically updating
 
 # paddle a
@@ -80,9 +80,9 @@ while True:
     if ball.ycor() < -290:
         ball.sety(-290)
         ball.dy *= -1
-    if ball.xcor() > 390 :
-        ball.setx(390)
+    if ball.xcor() > 490 :
+        ball.setx(490)
         ball.dx *= -1 
-    if ball.xcor() < -390:
-        ball.setx(-390)
+    if ball.xcor() < -490:
+        ball.setx(-490)
         ball.dx *= -1
