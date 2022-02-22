@@ -1,9 +1,10 @@
 import turtle
-
+import winsound
+import time
 window = turtle.Screen()
 window.title('pong by manani from tokyotech')
 window.bgcolor('black')
-window.setup(width=1000, height=600)
+window.setup(width=800, height=600)
 window.tracer(0) # stops windoow from automatically updating
 
 # paddle a
@@ -30,12 +31,26 @@ paddle_b.goto(345, 0)
 
 ball= turtle.Turtle()
 ball.speed(0)
-ball.shape('square')
-ball.color('white')
+ball.shape('circle')
+ball.color('yellow')
 ball.penup() # prevents paddle from drawing line while moving
 ball.goto(0, 0)
 ball.dx = 1.5
 ball.dy = 1.5
+
+#pen to draw score
+pen = turtle.Turtle()
+pen.speed(0)
+pen.color('white')
+pen.penup()
+pen.hideturtle()
+pen.goto(0, 260)
+pen.write('Player 1: 0  Player 2: 0', align='center', font=('Courier', 24, 'normal'))
+
+
+# score
+score_1 = 0
+score_2 = 0
 
 # Function to move ball
 
@@ -76,13 +91,42 @@ while True:
     # border checking
     if ball.ycor() > 290 :
         ball.sety(290)
+        ball.color('Purple')
         ball.dy *= -1 
+        winsound.PlaySound("pop.wav", winsound.SND_ASYNC)
     if ball.ycor() < -290:
         ball.sety(-290)
+        ball.color('red')
         ball.dy *= -1
-    if ball.xcor() > 490 :
-        ball.setx(490)
-        ball.dx *= -1 
-    if ball.xcor() < -490:
-        ball.setx(-490)
+        winsound.PlaySound("pop.wav", winsound.SND_ASYNC)
+    
+    if (ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < paddle_b.ycor() + 50 and ball.ycor() > paddle_b.ycor() -50):
+        ball.setx(340)
         ball.dx *= -1
+        winsound.PlaySound("pop.wav", winsound.SND_ASYNC) 
+    if ball.xcor() > 390 :
+        winsound.PlaySound("pop.wav", winsound.SND_ASYNC)
+        ball.goto(0,0)
+        time.sleep(0.5)
+        ball.color('green')
+        ball.dx *= -1
+        score_1 += 1
+        pen.clear()
+        pen.write('Player A: {}  Player B: {}'.format(score_1, score_2), align='center', font=('Courier', 24, 'normal'))
+        
+
+    if (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < paddle_a.ycor() + 50 and ball.ycor() > paddle_a.ycor() -50):
+        ball.setx(-340)
+        ball.dx *= -1 
+        winsound.PlaySound("pop.wav", winsound.SND_ASYNC)
+
+    if ball.xcor() < -390:
+        winsound.PlaySound("pop.wav", winsound.SND_ASYNC)
+        
+        ball.goto(0,0)
+        time.sleep(0.5)
+        ball.color('yellow')
+        ball.dx *= -1
+        score_2 += 1
+        pen.clear()
+        pen.write('Player A: {}  Player B: {}'.format(score_1, score_2), align='center', font=('Courier', 24, 'normal'))
