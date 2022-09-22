@@ -1,6 +1,8 @@
 import turtle
 import winsound
 import time
+import random
+
 window = turtle.Screen()
 window.title('pong by manani from tokyotech')
 window.bgcolor('black')
